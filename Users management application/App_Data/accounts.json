@@ -1,0 +1,20 @@
+[{
+	"login": "admin",
+	"password": "AdminPsw0d",
+	"name": "Admin"
+},
+{
+	"login": "acc1",
+	"password": "Acc1Pwd",
+	"name": "Account 1"
+},
+{
+	"login": "acc2",
+	"password": "Acc2Pwd",
+	"name": "Account 2"
+},
+{
+	"login": "acc3",
+	"password": "Acc3Pwd",
+	"name": "Account 3"
+}]

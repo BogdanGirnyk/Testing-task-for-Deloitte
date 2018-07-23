@@ -1,0 +1,95 @@
+﻿@using Users_management_application.Models
+@model List<User>
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+<div align="left" style="max-width:80%">
+    <div id="tags" style="min-height:40px">
+
+    </div>
+    <br />
+    <div>
+        <table class="table table-bordered" id="UsersTable">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Tags</th>
+                </tr>
+            </thead>
+            <tbody id="UsersTableData">
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(@item.Name,"Details",new {id = item.Id })</td>
+                        <td>@item.Company</td>
+                        <td>@item.Email</td>
+                        <td>@item.Phone</td>
+                        <td>
+                            @foreach (var tag in item.Tags)
+                {
+                                <button type="button" class="btn btn-info btn-sm tag">@tag</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    var tags = [];
+    var tagTempl = "<span class='badge badge-pill badge-info'><h7>TAG_PLACE</h7><button type='button' class='btn btn-info btn-sm removetag'>✕</button> </span>";
+
+
+
+    $('.tag').click(function (event) {
+        var tag = $(event.target).text();
+        if (tags.indexOf(tag) == -1) {
+            tags.push(tag);
+            $("#tags").append(tagTempl.replace("TAG_PLACE", tag));
+            $("#tags").last().click(onRemoveClicked);
+            filterTableRows();
+        }
+
+    });
+
+    function onRemoveClicked(event) {
+        var parent = $(event.target).parent();
+        if (!parent.is("span"))
+        {
+            return;
+        }
+        var tag = parent.children().first().text();
+        var index = tags.indexOf(tag);
+        if (index !== -1) tags.splice(index, 1);
+        parent.remove();
+        filterTableRows();
+    }
+
+    function filterTableRows() {
+        $("#UsersTableData tr").filter(function () {
+            $(this).toggle(isRowTagsMatch($(this)) || tags.length === 0)
+        });
+    }
+
+    function isRowTagsMatch(row) {
+        var result = true;
+
+        tags.forEach(function (el) {
+            var matchingTagElements = row.find(".tag").filter(function () {
+                return $(this).text() == el;
+            });
+            if (matchingTagElements.length === 0) {
+                result = false;
+                return false;
+            }
+        });
+        return result;
+    }
+</script>

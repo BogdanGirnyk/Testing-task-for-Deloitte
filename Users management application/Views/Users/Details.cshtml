@@ -1,0 +1,16 @@
+﻿@model Users_management_application.Models.User
+<br />
+<br />
+@{ 
+    string imgSrc = "/Users/Image?id=" + Model.PicturePath;
+}
+<img src="@imgSrc" align="left" vspace="5" hspace="5" />
+<b><p style="font-size:14px">@Model.Name, @Model.Gender</p></b>
+<p style="font-size:14px">@Model.Company</p>
+<p style="font-size:12px">@Model.Email</p>
+<p style="font-size:11px">@Model.Phone</p>
+<p style="font-size:11px">@Model.Address</p>
+<p style="font-size:11px">@Model.About</p>
+<p style="font-size:11px">@String.Join(", ", Model.Tags)</p>
+<br/>
+@Html.ActionLink("Back to list","Index")

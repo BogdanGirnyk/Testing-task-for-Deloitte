@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Scripts.Render("~/Scripts/jquery-3.0.0.min.js")
+</head>
+<body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+
+        <div class="navbar-header">
+            @Html.ActionLink("Welcome to user management application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+
+        <div class="nav navbar-nav navbar-right">
+            <b>Bogdan Girnyk</b> for Deloitte  
+        </div>
+
+    </nav>
+    <div class="body-content" style="padding: 10px">
+
+        @if (Request.IsAuthenticated)
+        {
+            <h5>
+                User name, @User.Identity.Name
+            </h5>
+            @Html.ActionLink("Log out", "LogOut", "Auth")
+        }
+        @RenderBody()
+    </div>
+</body>
+</html>
